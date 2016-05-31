@@ -54,12 +54,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         labelView = label
         
         self.view.addSubview(labelView!)
-       // counter = 0
         FadeInNotification()
         if (timer == nil) {
             timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         }
-        print(timer)
     }
     
     func timerAction() {
@@ -93,7 +91,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             completion: nil)
         timer.invalidate()
         timer = nil
-        
+        counter = 0
     }
     
     override func didReceiveMemoryWarning() {
@@ -159,25 +157,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let capitalLetterRegEx  = ".*[A-Z]+.*"
         let texttest = NSPredicate(format:"SELF MATCHES %@", capitalLetterRegEx)
         let capitalresult = texttest.evaluateWithObject(PasswordText.text!)
-        print("\(capitalresult)")
-        
         
         let numberRegEx  = ".*[0-9]+.*"
         let texttest1 = NSPredicate(format:"SELF MATCHES %@", numberRegEx)
         let numberresult = texttest1.evaluateWithObject(PasswordText.text!)
-        print("\(numberresult)")
-        
         
         let specialCharacterRegEx  = ".*[!&^%$#@()/]+.*"
         let texttest2 = NSPredicate(format:"SELF MATCHES %@", specialCharacterRegEx)
         let specialresult = texttest2.evaluateWithObject(PasswordText.text!)
-        print("\(specialresult)")
         
         let checkCharLen = checkChar(PasswordText, Clength: 8)
-        print("\(checkCharLen)")
         
         let checkPass = (PasswordText.text! == CPasswordText.text! ? true: false)
-        print("\(checkPass)")
         
         if !(capitalresult && numberresult && specialresult && checkCharLen && checkPass) {
             changeColor(PasswordText)
